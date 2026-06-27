@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPrincipal));
             TsmPrincipal = new MenuStrip();
             MenuItemArquivo = new ToolStripMenuItem();
             sairToolStripMenuItem = new ToolStripMenuItem();
@@ -45,7 +46,7 @@
             TsmPrincipal.Items.AddRange(new ToolStripItem[] { MenuItemArquivo, MenuItemCadastro, MenuItemOS, MenuItemConectar });
             TsmPrincipal.Location = new Point(0, 0);
             TsmPrincipal.Name = "TsmPrincipal";
-            TsmPrincipal.Size = new Size(800, 24);
+            TsmPrincipal.Size = new Size(842, 24);
             TsmPrincipal.TabIndex = 1;
             TsmPrincipal.Text = "menuStrip1";
             // 
@@ -72,13 +73,14 @@
             // clientesToolStripMenuItem
             // 
             clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
-            clientesToolStripMenuItem.Size = new Size(120, 22);
+            clientesToolStripMenuItem.Size = new Size(180, 22);
             clientesToolStripMenuItem.Text = "Clientes";
+            clientesToolStripMenuItem.Click += clientesToolStripMenuItem_Click;
             // 
             // técnicosToolStripMenuItem
             // 
             técnicosToolStripMenuItem.Name = "técnicosToolStripMenuItem";
-            técnicosToolStripMenuItem.Size = new Size(120, 22);
+            técnicosToolStripMenuItem.Size = new Size(180, 22);
             técnicosToolStripMenuItem.Text = "Técnicos";
             // 
             // MenuItemOS
@@ -99,14 +101,15 @@
             MenuItemConectar.Name = "MenuItemConectar";
             MenuItemConectar.Size = new Size(67, 20);
             MenuItemConectar.Text = "Conectar";
-            MenuItemConectar.Click += this.MenuItemConectar_Click;
+            MenuItemConectar.Click += MenuItemConectar_Click;
             // 
             // FrmPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(842, 425);
             Controls.Add(TsmPrincipal);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             IsMdiContainer = true;
             MainMenuStrip = TsmPrincipal;
             Name = "FrmPrincipal";
