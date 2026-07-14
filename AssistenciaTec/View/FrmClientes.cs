@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AssistenciaTec.Model;
+using AssistenciaTec.Repository;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -55,6 +57,21 @@ namespace AssistenciaTec.View
 
         private void toolStripButtonSalvar_Click(object sender, EventArgs e)
         {
+
+            // Criar um objeto Cliente
+            Cliente cliente = new Cliente();
+            cliente.Nome = TxtNome.Text;
+            cliente.Telefone = TxtTelefone.Text;
+            cliente.Email = TxtEmail.Text;
+            cliente.Endereco = TxtEndereco.Text;
+
+            // Criar um repositório de cliente
+            ClienteRepository clienteRepository = new ClienteRepository();
+            var clienteId = clienteRepository.Salvar(cliente);
+
+            // Mostrar o id do novo cliente cadastrado
+            LabelId.Text = clienteId.ToString();
+
             DesabilitarBotoesCancelarSalvar();
         }
     }
