@@ -21,12 +21,14 @@ namespace AssistenciaTec.Data
                 var conexao = new SqlConnection(ConexaoString);
                 conexao.Open();
 
-                MessageBox.Show(
+                /*
+                 * MessageBox.Show(
                     "Conexão efetuada com sucesso", 
                     "Conectado",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information
                 );
+                */
 
                 return conexao;
             }

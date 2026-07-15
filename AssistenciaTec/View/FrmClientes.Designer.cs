@@ -41,7 +41,7 @@
             LabelId = new Label();
             label1 = new Label();
             groupBox1 = new GroupBox();
-            dataGridView1 = new DataGridView();
+            DatagridViewClientes = new DataGridView();
             btnBuscar = new Button();
             textBox1 = new TextBox();
             label6 = new Label();
@@ -57,7 +57,7 @@
             label7 = new Label();
             GroupBoxDadosCliente.SuspendLayout();
             groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)DatagridViewClientes).BeginInit();
             toolStrip1.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -170,7 +170,7 @@
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(dataGridView1);
+            groupBox1.Controls.Add(DatagridViewClientes);
             groupBox1.Controls.Add(btnBuscar);
             groupBox1.Controls.Add(textBox1);
             groupBox1.Controls.Add(label6);
@@ -181,13 +181,13 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Lista de clientes cadastrados:";
             // 
-            // dataGridView1
+            // DatagridViewClientes
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(15, 101);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(473, 337);
-            dataGridView1.TabIndex = 3;
+            DatagridViewClientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            DatagridViewClientes.Location = new Point(15, 101);
+            DatagridViewClientes.Name = "DatagridViewClientes";
+            DatagridViewClientes.Size = new Size(473, 337);
+            DatagridViewClientes.TabIndex = 3;
             // 
             // btnBuscar
             // 
@@ -335,7 +335,7 @@
             GroupBoxDadosCliente.PerformLayout();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)DatagridViewClientes).EndInit();
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();
             panel1.ResumeLayout(false);
@@ -362,7 +362,7 @@
         private Label label6;
         private Button btnBuscar;
         private TextBox textBox1;
-        private DataGridView dataGridView1;
+        private DataGridView DatagridViewClientes;
         private ToolStrip toolStrip1;
         private ToolStripButton toolStripButtonNovo;
         private ToolStripButton toolStripButtonEditar;

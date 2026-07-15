@@ -42,5 +42,37 @@ namespace AssistenciaTec.Repository
 
         }
 
+        public List<Cliente> ListarTodos()
+        {
+
+            // Criar a instrução SQL para listar todos
+            var sql = "select * from tbl_clientes order by nome ASC";
+
+            // Abrir a conexão com o banco
+            using var conexao = Conexao.GetConexao();
+
+            // Criar o comando
+            using var comando = new SqlCommand(sql, conexao);
+
+            // Criar o objeto que guarda o resultado do comando SELECT
+            using var resultado = comando.ExecuteReader();
+
+            // Criar uma lista de clientes vazia
+            List<Cliente> clientes = new List<Cliente>();
+
+            while (resultado.Read())
+            {
+                Cliente cliente = new Cliente();
+                cliente.Id = resultado.GetInt32(resultado.GetOrdinal("cliente_id"));
+                cliente.Nome = resultado.GetString(resultado.GetOrdinal("nome"));
+                cliente.Email = resultado.GetString(resultado.GetOrdinal("email"));
+                cliente.Telefone = resultado.GetString(resultado.GetOrdinal("telefone"));
+                cliente.Endereco = resultado.GetString(resultado.GetOrdinal("endereco"));
+                clientes.Add(cliente);
+            }
+
+            return clientes;
+        }
+
     }
 }

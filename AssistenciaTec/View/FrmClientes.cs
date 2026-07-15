@@ -14,10 +14,41 @@ namespace AssistenciaTec.View
 {
     public partial class FrmClientes : Form
     {
+
+        private List<Cliente> clientes = new List<Cliente>();
+
         public FrmClientes()
         {
             InitializeComponent();
             DesabilitarBotoesCancelarSalvar();
+            CarregarGridClientes();
+        }
+
+        private void CarregarGridClientes()
+        {
+            // Criar o repositório
+            ClienteRepository clienteRepository = new ClienteRepository();
+
+            // Obter a lista do repositório
+            clientes = clienteRepository.ListarTodos();
+
+            // Carregar o DatagridView com os dados
+            DatagridViewClientes.Columns.Clear();
+            DatagridViewClientes.AutoGenerateColumns = false;
+
+            DataGridViewTextBoxColumn colunaId = new DataGridViewTextBoxColumn();
+            colunaId.DataPropertyName = "Id";
+            colunaId.HeaderText = "Código";
+            DatagridViewClientes.Columns.Add(colunaId);
+
+            DataGridViewTextBoxColumn colunaNome = new DataGridViewTextBoxColumn();
+            colunaNome.DataPropertyName = "Nome";
+            colunaNome.HeaderText = "Nome do cliente";
+            DatagridViewClientes.Columns.Add(colunaNome);
+
+            // Informar de onde vem os dados da datagridview
+            DatagridViewClientes.DataSource = clientes;
+
         }
 
         private void DesabilitarBotoesCancelarSalvar()
@@ -43,6 +74,17 @@ namespace AssistenciaTec.View
         private void toolStripButtonNovo_Click(object sender, EventArgs e)
         {
             HabilitarBotoesCancelarSalvar();
+            LimparCampos();
+        }
+
+        private void LimparCampos()
+        {
+            TxtNome.Clear();
+            TxtEmail.Clear();
+            TxtEndereco.Clear();
+            TxtTelefone.Clear();
+            LabelId.Text = "";
+            TxtNome.Focus();
         }
 
         private void toolStripButtonEditar_Click(object sender, EventArgs e)
