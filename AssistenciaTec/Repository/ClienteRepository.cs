@@ -74,5 +74,26 @@ namespace AssistenciaTec.Repository
             return clientes;
         }
 
+        public int excluir(int id)
+        {
+            // Instrução SQL de exclusão
+            var sql = "DELETE FROM tbl_clientes WHERE cliente_id = @Id";
+
+            // Abrir a conexão com o banco
+            using var conexao = Conexao.GetConexao();
+
+            // Criar o comando
+            using var comando = new SqlCommand(sql, conexao);
+
+            // Substituir o parâmetro @Id do SQL pelo valor do id do cliente
+            comando.Parameters.AddWithValue("@Id", id);
+
+            // Executar o comando
+            var resultado = comando.ExecuteNonQuery();
+
+            return resultado;
+
+        }
+
     }
 }

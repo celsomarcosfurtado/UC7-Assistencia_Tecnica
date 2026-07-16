@@ -183,11 +183,16 @@
             // 
             // DatagridViewClientes
             // 
+            DatagridViewClientes.AllowUserToResizeColumns = false;
+            DatagridViewClientes.AllowUserToResizeRows = false;
             DatagridViewClientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             DatagridViewClientes.Location = new Point(15, 101);
             DatagridViewClientes.Name = "DatagridViewClientes";
+            DatagridViewClientes.ReadOnly = true;
             DatagridViewClientes.Size = new Size(473, 337);
             DatagridViewClientes.TabIndex = 3;
+            DatagridViewClientes.CellClick += DatagridViewClientes_CellClick;
+            DatagridViewClientes.CellEnter += DatagridViewClientes_CellEnter;
             // 
             // btnBuscar
             // 

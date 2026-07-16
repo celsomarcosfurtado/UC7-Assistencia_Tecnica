@@ -39,11 +39,13 @@ namespace AssistenciaTec.View
             DataGridViewTextBoxColumn colunaId = new DataGridViewTextBoxColumn();
             colunaId.DataPropertyName = "Id";
             colunaId.HeaderText = "Código";
+            colunaId.Width = 80;
             DatagridViewClientes.Columns.Add(colunaId);
 
             DataGridViewTextBoxColumn colunaNome = new DataGridViewTextBoxColumn();
             colunaNome.DataPropertyName = "Nome";
             colunaNome.HeaderText = "Nome do cliente";
+            colunaNome.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             DatagridViewClientes.Columns.Add(colunaNome);
 
             // Informar de onde vem os dados da datagridview
@@ -115,6 +117,37 @@ namespace AssistenciaTec.View
             LabelId.Text = clienteId.ToString();
 
             DesabilitarBotoesCancelarSalvar();
+            CarregarGridClientes();
+        }
+
+        private void DatagridViewClientes_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            exibirDetalhesDoCliente(e);
+        }
+
+        private void DatagridViewClientes_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            exibirDetalhesDoCliente(e);
+        }
+
+        private void exibirDetalhesDoCliente(DataGridViewCellEventArgs e)
+        {
+            var linha = e.RowIndex;
+
+            if (linha == -1)
+            {
+                linha = 0;
+            }
+
+            // Recuperar os dados da linha que foi clicada
+            var linhaSelecionada = DatagridViewClientes.Rows[linha];
+            var clienteSelecionado = linhaSelecionada.DataBoundItem as Cliente;
+
+            LabelId.Text = clienteSelecionado.Id.ToString();
+            TxtNome.Text = clienteSelecionado.Nome;
+            TxtEmail.Text = clienteSelecionado.Email;
+            TxtEndereco.Text = clienteSelecionado.Endereco;
+            TxtTelefone.Text = clienteSelecionado.Telefone;
         }
     }
 }
