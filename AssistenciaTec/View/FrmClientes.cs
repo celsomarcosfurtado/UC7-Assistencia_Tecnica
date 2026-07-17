@@ -111,10 +111,28 @@ namespace AssistenciaTec.View
 
             // Criar um repositório de cliente
             ClienteRepository clienteRepository = new ClienteRepository();
-            var clienteId = clienteRepository.Salvar(cliente);
-
-            // Mostrar o id do novo cliente cadastrado
-            LabelId.Text = clienteId.ToString();
+            
+            if (LabelId.Text == String.Empty)
+            {
+                var clienteId = clienteRepository.Salvar(cliente);
+                LabelId.Text = clienteId.ToString();
+                MessageBox.Show(
+                    "Cliente criado com sucesso!",
+                    "Cadastro de cliente",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+            } else
+            {
+                cliente.Id = int.Parse(LabelId.Text);
+                clienteRepository.atualizar(cliente);
+                MessageBox.Show(
+                    "Cliente atualizado com sucesso!",
+                    "Atualização de cliente",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+            }
 
             DesabilitarBotoesCancelarSalvar();
             CarregarGridClientes();
@@ -148,6 +166,36 @@ namespace AssistenciaTec.View
             TxtEmail.Text = clienteSelecionado.Email;
             TxtEndereco.Text = clienteSelecionado.Endereco;
             TxtTelefone.Text = clienteSelecionado.Telefone;
+        }
+
+        private void toolStripButtonExcluir_Click(object sender, EventArgs e)
+        {
+            // Confirmar se a exclusão deverá ocorrer
+            var resposta = MessageBox.Show(
+                "Confirma a exclusão do cliente selecionado?",
+                "Exclusão de cliente",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if ( resposta == DialogResult.Yes)
+            {
+                var clienteRepository = new ClienteRepository();
+                var idSelecionado = int.Parse(LabelId.Text);
+                
+                var excluidos = clienteRepository.excluir(idSelecionado);
+
+                if (excluidos > 0)
+                {
+                    MessageBox.Show(
+                        "Cliente excluído com sucesso!", 
+                        "Exclusão de cliente",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+                    CarregarGridClientes();
+                }
+            }
         }
     }
 }

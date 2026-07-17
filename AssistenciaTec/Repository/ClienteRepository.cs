@@ -95,5 +95,33 @@ namespace AssistenciaTec.Repository
 
         }
 
+        public int atualizar(Cliente cliente)
+        {
+            // Instrução SQL para atualização do cliente
+            var sql = "UPDATE tbl_clientes SET nome = @Nome, " +
+                "email = @Email, " +
+                "telefone = @Telefone, " +
+                "endereco = @Endereco " +
+                "WHERE cliente_id = @Id";
+
+            // Abrir a conexão com o banco de dados
+            using var conexao = Conexao.GetConexao();
+
+            // Criar o comando que será enviado ao banco de dados
+            using var comando = new SqlCommand(sql, conexao);
+
+            // Preecher os campos da instrução sql com os valores
+            comando.Parameters.AddWithValue("@Nome", cliente.Nome);
+            comando.Parameters.AddWithValue("@Email", cliente.Email);
+            comando.Parameters.AddWithValue("@Telefone", cliente.Telefone);
+            comando.Parameters.AddWithValue("@Endereco", cliente.Endereco);
+            comando.Parameters.AddWithValue("@Id", cliente.Id);
+
+            var resultado = comando.ExecuteNonQuery();
+
+            return resultado;
+
+        }
+
     }
 }

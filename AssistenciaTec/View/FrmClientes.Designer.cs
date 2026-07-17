@@ -261,6 +261,7 @@
             toolStripButtonExcluir.Size = new Size(28, 32);
             toolStripButtonExcluir.Text = "toolStripButton3";
             toolStripButtonExcluir.ToolTipText = "Excluir cliente selecionado";
+            toolStripButtonExcluir.Click += toolStripButtonExcluir_Click;
             // 
             // toolStripSeparator1
             // 
