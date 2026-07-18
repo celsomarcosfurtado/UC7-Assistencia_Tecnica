@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmClientes));
             GroupBoxDadosCliente = new GroupBox();
+            LblErroNome = new Label();
             TxtEndereco = new TextBox();
             label5 = new Label();
             TxtTelefone = new TextBox();
@@ -43,7 +45,7 @@
             groupBox1 = new GroupBox();
             DatagridViewClientes = new DataGridView();
             btnBuscar = new Button();
-            textBox1 = new TextBox();
+            TxtBuscarPorNome = new TextBox();
             label6 = new Label();
             toolStrip1 = new ToolStrip();
             toolStripButtonNovo = new ToolStripButton();
@@ -55,16 +57,25 @@
             panel1 = new Panel();
             pictureBox1 = new PictureBox();
             label7 = new Label();
+            errorProvider1 = new ErrorProvider(components);
+            LblErroEmail = new Label();
+            LblErroTelefone = new Label();
+            LblErroEndereco = new Label();
             GroupBoxDadosCliente.SuspendLayout();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DatagridViewClientes).BeginInit();
             toolStrip1.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
             // GroupBoxDadosCliente
             // 
+            GroupBoxDadosCliente.Controls.Add(LblErroEndereco);
+            GroupBoxDadosCliente.Controls.Add(LblErroTelefone);
+            GroupBoxDadosCliente.Controls.Add(LblErroEmail);
+            GroupBoxDadosCliente.Controls.Add(LblErroNome);
             GroupBoxDadosCliente.Controls.Add(TxtEndereco);
             GroupBoxDadosCliente.Controls.Add(label5);
             GroupBoxDadosCliente.Controls.Add(TxtTelefone);
@@ -82,6 +93,18 @@
             GroupBoxDadosCliente.TabIndex = 0;
             GroupBoxDadosCliente.TabStop = false;
             GroupBoxDadosCliente.Text = "Dados do cliente:";
+            // 
+            // LblErroNome
+            // 
+            LblErroNome.Font = new Font("Consolas", 8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LblErroNome.ForeColor = Color.Red;
+            LblErroNome.Location = new Point(133, 150);
+            LblErroNome.Name = "LblErroNome";
+            LblErroNome.Size = new Size(156, 15);
+            LblErroNome.TabIndex = 10;
+            LblErroNome.Text = "Nome é obrigatório.";
+            LblErroNome.TextAlign = ContentAlignment.MiddleRight;
+            LblErroNome.Visible = false;
             // 
             // TxtEndereco
             // 
@@ -172,7 +195,7 @@
             // 
             groupBox1.Controls.Add(DatagridViewClientes);
             groupBox1.Controls.Add(btnBuscar);
-            groupBox1.Controls.Add(textBox1);
+            groupBox1.Controls.Add(TxtBuscarPorNome);
             groupBox1.Controls.Add(label6);
             groupBox1.Location = new Point(334, 75);
             groupBox1.Name = "groupBox1";
@@ -202,13 +225,14 @@
             btnBuscar.Size = new Size(46, 42);
             btnBuscar.TabIndex = 2;
             btnBuscar.UseVisualStyleBackColor = true;
+            btnBuscar.Click += btnBuscar_Click;
             // 
-            // textBox1
+            // TxtBuscarPorNome
             // 
-            textBox1.Location = new Point(15, 52);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(421, 25);
-            textBox1.TabIndex = 1;
+            TxtBuscarPorNome.Location = new Point(15, 52);
+            TxtBuscarPorNome.Name = "TxtBuscarPorNome";
+            TxtBuscarPorNome.Size = new Size(421, 25);
+            TxtBuscarPorNome.TabIndex = 1;
             // 
             // label6
             // 
@@ -322,6 +346,47 @@
             label7.TabIndex = 0;
             label7.Text = "Cadastro de Clientes";
             // 
+            // errorProvider1
+            // 
+            errorProvider1.BlinkStyle = ErrorBlinkStyle.AlwaysBlink;
+            errorProvider1.ContainerControl = this;
+            // 
+            // LblErroEmail
+            // 
+            LblErroEmail.Font = new Font("Consolas", 8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LblErroEmail.ForeColor = Color.Red;
+            LblErroEmail.Location = new Point(133, 214);
+            LblErroEmail.Name = "LblErroEmail";
+            LblErroEmail.Size = new Size(156, 15);
+            LblErroEmail.TabIndex = 11;
+            LblErroEmail.Text = "Nome é obrigatório.";
+            LblErroEmail.TextAlign = ContentAlignment.MiddleRight;
+            LblErroEmail.Visible = false;
+            // 
+            // LblErroTelefone
+            // 
+            LblErroTelefone.Font = new Font("Consolas", 8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LblErroTelefone.ForeColor = Color.Red;
+            LblErroTelefone.Location = new Point(30, 281);
+            LblErroTelefone.Name = "LblErroTelefone";
+            LblErroTelefone.Size = new Size(156, 15);
+            LblErroTelefone.TabIndex = 12;
+            LblErroTelefone.Text = "Nome é obrigatório.";
+            LblErroTelefone.TextAlign = ContentAlignment.MiddleRight;
+            LblErroTelefone.Visible = false;
+            // 
+            // LblErroEndereco
+            // 
+            LblErroEndereco.Font = new Font("Consolas", 8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LblErroEndereco.ForeColor = Color.Red;
+            LblErroEndereco.Location = new Point(133, 436);
+            LblErroEndereco.Name = "LblErroEndereco";
+            LblErroEndereco.Size = new Size(156, 15);
+            LblErroEndereco.TabIndex = 13;
+            LblErroEndereco.Text = "Nome é obrigatório.";
+            LblErroEndereco.TextAlign = ContentAlignment.MiddleRight;
+            LblErroEndereco.Visible = false;
+            // 
             // FrmClientes
             // 
             AutoScaleDimensions = new SizeF(8F, 18F);
@@ -347,6 +412,7 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -367,7 +433,7 @@
         private GroupBox groupBox1;
         private Label label6;
         private Button btnBuscar;
-        private TextBox textBox1;
+        private TextBox TxtBuscarPorNome;
         private DataGridView DatagridViewClientes;
         private ToolStrip toolStrip1;
         private ToolStripButton toolStripButtonNovo;
@@ -379,5 +445,10 @@
         private Panel panel1;
         private PictureBox pictureBox1;
         private Label label7;
+        private ErrorProvider errorProvider1;
+        private Label LblErroNome;
+        private Label LblErroEndereco;
+        private Label LblErroTelefone;
+        private Label LblErroEmail;
     }
 }

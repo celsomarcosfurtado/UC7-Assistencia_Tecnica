@@ -53,6 +53,35 @@ namespace AssistenciaTec.View
 
         }
 
+        private void CarregarGridClientes(string nome)
+        {
+            // Criar o repositório
+            ClienteRepository clienteRepository = new ClienteRepository();
+
+            // Obter a lista do repositório
+            clientes = clienteRepository.ListarPorNome(nome);
+
+            // Carregar o DatagridView com os dados
+            DatagridViewClientes.Columns.Clear();
+            DatagridViewClientes.AutoGenerateColumns = false;
+
+            DataGridViewTextBoxColumn colunaId = new DataGridViewTextBoxColumn();
+            colunaId.DataPropertyName = "Id";
+            colunaId.HeaderText = "Código";
+            colunaId.Width = 80;
+            DatagridViewClientes.Columns.Add(colunaId);
+
+            DataGridViewTextBoxColumn colunaNome = new DataGridViewTextBoxColumn();
+            colunaNome.DataPropertyName = "Nome";
+            colunaNome.HeaderText = "Nome do cliente";
+            colunaNome.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            DatagridViewClientes.Columns.Add(colunaNome);
+
+            // Informar de onde vem os dados da datagridview
+            DatagridViewClientes.DataSource = clientes;
+
+        }
+
         private void DesabilitarBotoesCancelarSalvar()
         {
             toolStripButtonNovo.Enabled = true;
@@ -101,17 +130,54 @@ namespace AssistenciaTec.View
 
         private void toolStripButtonSalvar_Click(object sender, EventArgs e)
         {
-
             // Criar um objeto Cliente
             Cliente cliente = new Cliente();
-            cliente.Nome = TxtNome.Text;
-            cliente.Telefone = TxtTelefone.Text;
-            cliente.Email = TxtEmail.Text;
-            cliente.Endereco = TxtEndereco.Text;
+
+            errorProvider1.Clear();
+            limparControlesPreenchidos();
+
+            try
+            {
+                cliente.Nome = TxtNome.Text;
+                cliente.Telefone = TxtTelefone.Text;
+                cliente.Email = TxtEmail.Text;
+                cliente.Endereco = TxtEndereco.Text;
+            }
+            catch (ArgumentException erro)
+            {
+                if (erro.ParamName == "Nome")
+                {
+                    errorProvider1.SetError(TxtNome, "Este campo é obrigatório");
+                    TxtNome.BackColor = Color.Yellow;
+                    LblErroNome.Visible = true;
+                }
+                else if (erro.ParamName == "Endereco") // ou "Endereço", ajuste conforme o nome do parâmetro na sua exceção
+                {
+                    errorProvider1.SetError(TxtEndereco, "Este campo é obrigatório");
+                    TxtEndereco.BackColor = Color.Yellow;
+                    LblErroEndereco.Visible = true;
+                }
+                else if (erro.ParamName == "Email")
+                {
+                    errorProvider1.SetError(TxtEmail, "Este campo é obrigatório ou inválido");
+                    TxtEmail.BackColor = Color.Yellow;
+                    LblErroEmail.Visible = true;
+                }
+                else if (erro.ParamName == "Telefone")
+                {
+                    errorProvider1.SetError(TxtTelefone, "Este campo é obrigatório ou inválido");
+                    TxtTelefone.BackColor = Color.Yellow;
+                    LblErroTelefone.Visible = true;
+                }
+
+                return;
+            }
+
+            errorProvider1.Clear();
 
             // Criar um repositório de cliente
             ClienteRepository clienteRepository = new ClienteRepository();
-            
+
             if (LabelId.Text == String.Empty)
             {
                 var clienteId = clienteRepository.Salvar(cliente);
@@ -122,7 +188,8 @@ namespace AssistenciaTec.View
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information
                 );
-            } else
+            }
+            else
             {
                 cliente.Id = int.Parse(LabelId.Text);
                 clienteRepository.atualizar(cliente);
@@ -136,6 +203,17 @@ namespace AssistenciaTec.View
 
             DesabilitarBotoesCancelarSalvar();
             CarregarGridClientes();
+        }
+
+        private void limparControlesPreenchidos()
+        {
+
+            if (TxtNome.Text != String.Empty)
+            {
+                TxtNome.BackColor = Color.White;
+                LblErroNome.Visible = false;
+            }
+
         }
 
         private void DatagridViewClientes_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -178,17 +256,17 @@ namespace AssistenciaTec.View
                 MessageBoxIcon.Question
             );
 
-            if ( resposta == DialogResult.Yes)
+            if (resposta == DialogResult.Yes)
             {
                 var clienteRepository = new ClienteRepository();
                 var idSelecionado = int.Parse(LabelId.Text);
-                
+
                 var excluidos = clienteRepository.excluir(idSelecionado);
 
                 if (excluidos > 0)
                 {
                     MessageBox.Show(
-                        "Cliente excluído com sucesso!", 
+                        "Cliente excluído com sucesso!",
                         "Exclusão de cliente",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information
@@ -196,6 +274,11 @@ namespace AssistenciaTec.View
                     CarregarGridClientes();
                 }
             }
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            CarregarGridClientes(TxtBuscarPorNome.Text);
         }
     }
 }
