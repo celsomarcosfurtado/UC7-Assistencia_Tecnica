@@ -214,6 +214,8 @@ namespace AssistenciaTec.View
                 LblErroNome.Visible = false;
             }
 
+
+
         }
 
         private void DatagridViewClientes_CellClick(object sender, DataGridViewCellEventArgs e)
